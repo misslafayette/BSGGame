@@ -1,10 +1,18 @@
 ﻿namespace BSGGame.GameLogic
 {
+
+    public enum Loyalty
+    {
+        Human,
+        Cylon
+    }
+
     public class Player
     {
         public string Name { get; set; }
-        public string Loyalty { get; set; }
-        public List<string> _cards;
+        public Loyalty Loyalty { get; set; }
+
+        public List<string> Cards { get; set; } = new();
 
 
     }
