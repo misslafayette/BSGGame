@@ -12,8 +12,8 @@
         public string Name { get; set; }
         public Loyalty Loyalty { get; set; }
 
-        public List<string> Cards { get; set; } = new();
+        public List<SkillCard> Cards { get; set; } = new();
 
-
+        public bool HasDrawn { get; set; } = false;
     }
 }

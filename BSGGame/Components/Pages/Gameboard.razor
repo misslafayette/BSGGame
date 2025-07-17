@@ -18,21 +18,100 @@
         <div class="col">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">@player.Name</h5>
+                    <h5 class="card-title">
+                        @player.Name @if (player.HasDrawn) {
+                        <span>👏</span>
+                        <p>HasDrawn: @player.HasDrawn</p>
+                    }
+                    </h5>
                     <p class= "card-text">
                         Loyalty: <strong>@player.Loyalty</strong>
                     </p>
+                    <button class="btn btn-outline-primary" @onclick="(() => DrawCard(player))">Draw</button>
+
+                    @if (player.Cards.Any())
+                    {
+                        var last = GetLastCard(player);
+
+                        <p class="cards-drawn">
+                            Drew: <span class="badge bg-info">@last?.Type</span> - <strong>@last?.Value</strong>
+                        </p>
+
+                        <div class="mt-3">
+                            <h6>Hand:</h6>
+                            <ul class="list-unstyled">
+                                @foreach (var card in player.Cards)
+                                {
+                                    <li>
+                                        <span class="badge bg-info">@card.Type</span> - <strong>@card.Value</strong>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     }
 </div>
 
+<div class="container mt-5">
+    <h4>🧪 Debug: Current Deck</h4>
+
+    <ul class="list-group">
+        @foreach (var card in deck)
+        {
+            <li class="list-group-item d-flex justify-content-between">
+                <span>@card.Type</span>
+                <span class="badge bg-secondary">@card.Value</span>
+            </li>
+        }
+    </ul>
+    <p><strong>Remaining Cards:</strong> @deck.Count</p>
+</div>
+
 @code {
-    public static List<Player> players = new()
+    void DrawCard(Player player)
     {
-        new Player {Name = "Adama", Loyalty = Loyalty.Human},
-        new Player {Name = "Boomer", Loyalty = Loyalty.Cylon},
-        new Player {Name = "Starbuck", Loyalty = Loyalty.Human}
+        if (deck.Count == 0)
+            return;
+
+        var drawnCard = deck[0];
+        deck.RemoveAt(0);
+        player.Cards.Add(drawnCard);
+
+        Console.WriteLine($"Drew {drawnCard.Type} ({drawnCard.Value}) for {player.Name}");
+
+        // Add a quick UI signal
+        // player.Name += " 👏";
+        player.HasDrawn = true;
+
+        StateHasChanged();
+    }
+
+    List<Player> players = new();
+
+    protected override void OnInitialized()
+    {
+        deck.Shuffle();
+
+        players.AddRange(new[]
+        {
+            new Player {Name = "Adama", Loyalty = Loyalty.Human},
+            new Player {Name = "Boomer", Loyalty = Loyalty.Cylon},
+            new Player {Name = "Starbuck", Loyalty = Loyalty.Human}
+        });
+    }
+
+    List<SkillCard> deck = new()
+    {
+        new SkillCard {Type = CardType.Tactics, Value = 3},
+        new SkillCard {Type = CardType.Piloting, Value = 6},
+        new SkillCard {Type = CardType.Treachery, Value = 0}
     };
+
+    SkillCard? GetLastCard(Player player)
+    {
+        return player.Cards.LastOrDefault();
+    }
 }
