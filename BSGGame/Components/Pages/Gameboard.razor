@@ -1,4 +1,5 @@
-﻿@using BSGGame.GameLogic
+﻿@rendermode InteractiveServer
+@using BSGGame.GameLogic
 @page "/gameboard"
 
 <h1>🚀 Game Board</h1>
@@ -45,6 +46,7 @@
                                     <li>
                                         <span class="badge bg-info">@card.Type</span> - <strong>@card.Value</strong>
                                     </li>
+                                    <button class="btn btn-outline-primary" @onclick="() => DiscardCard(player,card)">Discard</button>
                                 }
                             </ul>
                         </div>
@@ -68,6 +70,14 @@
         }
     </ul>
     <p><strong>Remaining Cards:</strong> @deck.Count</p>
+
+    <h4>🗑 Discard Pile</h4>
+    <ul>
+        @foreach (var card in discardPile)
+        {
+            <li>@card.Type - @card.Value</li>
+        }
+    </ul>
 </div>
 
 @code {
@@ -75,17 +85,20 @@
     {
         if (deck.Count == 0)
             return;
-
         var drawnCard = deck[0];
         deck.RemoveAt(0);
         player.Cards.Add(drawnCard);
-
-        Console.WriteLine($"Drew {drawnCard.Type} ({drawnCard.Value}) for {player.Name}");
-
-        // Add a quick UI signal
-        // player.Name += " 👏";
         player.HasDrawn = true;
+        StateHasChanged();
+    }
 
+    void DiscardCard(Player player, SkillCard card)
+    {
+        if (player.Cards.Contains(card))
+        {
+            player.Cards.Remove(card);
+            discardPile.Add(card);
+        }
         StateHasChanged();
     }
 
@@ -108,6 +121,10 @@
         new SkillCard {Type = CardType.Tactics, Value = 3},
         new SkillCard {Type = CardType.Piloting, Value = 6},
         new SkillCard {Type = CardType.Treachery, Value = 0}
+    };
+
+    List<SkillCard> discardPile = new()
+    {
     };
 
     SkillCard? GetLastCard(Player player)
