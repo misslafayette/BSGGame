@@ -1,5 +1,13 @@
 ﻿@rendermode InteractiveServer
-@using BSGGame.GameLogic
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using BSGGame.GameLogic;
+@using BSGGame.GameLogic.Cards;
+@using BSGGame.GameLogic.Cards.Core;
+@using BSGGame.GameLogic.Cards.Daybreak;
+@using BSGGame.GameLogic.Cards.Exodus;
+@using BSGGame.GameLogic.Cards.Pegasus;
 @page "/gameboard"
 
 <h1>🚀 Game Board</h1>
@@ -28,7 +36,11 @@
                     <p class= "card-text">
                         Loyalty: <strong>@player.Loyalty</strong>
                     </p>
-                    <button class="btn btn-outline-primary" @onclick="(() => DrawCard(player))">Draw</button>
+                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Tactics)">Draw Tactics</button>
+                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Politics)">Draw Politics</button>
+                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Leadership)">Draw Leadership</button>
+                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Engineering)">Draw Engineering</button>
+                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Piloting)">Draw Piloting</button>
 
                     @if (player.Cards.Any())
                     {
@@ -58,37 +70,33 @@
 </div>
 
 <div class="container mt-5">
-    <h4>🧪 Debug: Current Deck</h4>
-
-    <ul class="list-group">
-        @foreach (var card in deck)
-        {
-            <li class="list-group-item d-flex justify-content-between">
-                <span>@card.Type</span>
-                <span class="badge bg-secondary">@card.Value</span>
-            </li>
-        }
-    </ul>
-    <p><strong>Remaining Cards:</strong> @deck.Count</p>
-
-    <h4>🗑 Discard Pile</h4>
-    <ul>
-        @foreach (var card in discardPile)
-        {
-            <li>@card.Type - @card.Value</li>
-        }
-    </ul>
+    <h4>🗑 Discard Piles</h4>
+    @foreach (var pair in discardPiles)
+    {
+        <h5>@pair.Key</h5>
+        <ul>
+            @foreach (var card in pair.Value)
+            {
+                <li>@card.Type - @card.Value</li>
+            }
+        </ul>
+    }
 </div>
 
 @code {
-    void DrawCard(Player player)
+    Dictionary<CardType, List<SkillCard>> decks = new();
+    void DrawCardOfType(Player player, CardType type)
     {
-        if (deck.Count == 0)
+        if (!decks.TryGetValue(type, out var deckForType) || deckForType.Count == 0)
             return;
-        var drawnCard = deck[0];
-        deck.RemoveAt(0);
-        player.Cards.Add(drawnCard);
+
+        var card = deckForType[0];
+        deckForType.RemoveAt(0);
+
+        player.Cards.Add(card);
         player.HasDrawn = true;
+
+        Console.WriteLine($"Drew {card.Type} ({card.Value}) for {player.Name}");
         StateHasChanged();
     }
 
@@ -97,8 +105,9 @@
         if (player.Cards.Contains(card))
         {
             player.Cards.Remove(card);
-            discardPile.Add(card);
+            discardPiles[card.Type].Add(card);
         }
+
         StateHasChanged();
     }
 
@@ -106,26 +115,36 @@
 
     protected override void OnInitialized()
     {
-        deck.Shuffle();
-
         players.AddRange(new[]
         {
             new Player {Name = "Adama", Loyalty = Loyalty.Human},
             new Player {Name = "Boomer", Loyalty = Loyalty.Cylon},
             new Player {Name = "Starbuck", Loyalty = Loyalty.Human}
         });
+
+        foreach (CardType type in Enum.GetValues<CardType>())
+        {
+            decks[type] = new List<SkillCard>();
+            discardPiles[type] = new List<SkillCard>();
+        }
+
+        void AddCards<T>(CardType type, int value, int count) where T : SkillCard
+        {
+            for (int i = 0; i < count; i++)
+            {
+                decks[type].Add((T)Activator.CreateInstance(typeof(T), value)!);
+            }
+        }
+
+        AddCards<ExecutiveOrderCard>(CardType.Leadership, 1, 8);
+
+        foreach (var deck in decks.Values)
+        {
+            deck.Shuffle();
+        }
     }
 
-    List<SkillCard> deck = new()
-    {
-        new SkillCard {Type = CardType.Tactics, Value = 3},
-        new SkillCard {Type = CardType.Piloting, Value = 6},
-        new SkillCard {Type = CardType.Treachery, Value = 0}
-    };
-
-    List<SkillCard> discardPile = new()
-    {
-    };
+    Dictionary<CardType, List<SkillCard>> discardPiles = new();
 
     SkillCard? GetLastCard(Player player)
     {

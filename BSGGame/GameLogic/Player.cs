@@ -1,4 +1,6 @@
-﻿namespace BSGGame.GameLogic
+﻿using BSGGame.GameLogic.Cards;
+
+namespace BSGGame.GameLogic
 {
 
     public enum Loyalty
