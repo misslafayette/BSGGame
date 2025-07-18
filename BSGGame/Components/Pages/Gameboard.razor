@@ -7,6 +7,7 @@
 @using BSGGame.GameLogic.Cards.Core;
 @using BSGGame.GameLogic.Cards.Daybreak;
 @using BSGGame.GameLogic.Cards.Exodus;
+@using BSGGame.GameLogic.Cards.Factories;
 @using BSGGame.GameLogic.Cards.Pegasus;
 @page "/gameboard"
 
@@ -30,9 +31,9 @@
                     <h5 class="card-title">
                         @player.Name @if (player.HasDrawn) {
                         <span>👏</span>
-                        <p>HasDrawn: @player.HasDrawn</p>
                     }
                     </h5>
+                    <p>HasDrawn: @player.HasDrawn</p>
                     <p class= "card-text">
                         Loyalty: <strong>@player.Loyalty</strong>
                     </p>
@@ -128,15 +129,7 @@
             discardPiles[type] = new List<SkillCard>();
         }
 
-        void AddCards<T>(CardType type, int value, int count) where T : SkillCard
-        {
-            for (int i = 0; i < count; i++)
-            {
-                decks[type].Add((T)Activator.CreateInstance(typeof(T), value)!);
-            }
-        }
-
-        AddCards<ExecutiveOrderCard>(CardType.Leadership, 1, 8);
+        CoreSkillCardFactory.BuildAllDecks();
 
         foreach (var deck in decks.Values)
         {
