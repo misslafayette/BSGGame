@@ -9,6 +9,7 @@
 @using BSGGame.GameLogic.Cards.Exodus;
 @using BSGGame.GameLogic.Cards.Factories;
 @using BSGGame.GameLogic.Cards.Pegasus;
+@using static BSGGame.GameLogic.TurnPhase;
 @page "/gameboard"
 
 <h1>🚀 Game Board</h1>
@@ -42,6 +43,7 @@
                     <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Leadership)">Draw Leadership</button>
                     <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Engineering)">Draw Engineering</button>
                     <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Piloting)">Draw Piloting</button>
+                    <button class="btn btn-warning" @onclick="AdvancePhase">Next Phase</button>
 
                     @if (player.Cards.Any())
                     {
@@ -86,6 +88,35 @@
 
 @code {
     Dictionary<CardType, List<SkillCard>> decks = new();
+    Dictionary<CardType, List<SkillCard>> discardPiles = new();
+    List<Player> players = new();
+    int currentPlayerIndex = 0;
+    TurnPhase currentPhase = TurnPhase.Draw;
+    Player CurrentPlayer => players[currentPlayerIndex];
+
+    protected override void OnInitialized()
+    {
+        players.AddRange(new[]
+        {
+            new Player {Name = "Adama", Loyalty = Loyalty.Human},
+            new Player {Name = "Boomer", Loyalty = Loyalty.Cylon},
+            new Player {Name = "Starbuck", Loyalty = Loyalty.Human}
+        });
+
+        foreach (CardType type in Enum.GetValues<CardType>())
+        {
+            decks[type] = new List<SkillCard>();
+            discardPiles[type] = new List<SkillCard>();
+        }
+
+        CoreSkillCardFactory.BuildAllDecks();
+
+        foreach (var deck in decks.Values)
+        {
+            deck.Shuffle();
+        }
+    }
+
     void DrawCardOfType(Player player, CardType type)
     {
         if (!decks.TryGetValue(type, out var deckForType) || deckForType.Count == 0)
@@ -112,32 +143,37 @@
         StateHasChanged();
     }
 
-    List<Player> players = new();
-
-    protected override void OnInitialized()
+    void AdvancePhase()
     {
-        players.AddRange(new[]
+        switch (currentPhase)
         {
-            new Player {Name = "Adama", Loyalty = Loyalty.Human},
-            new Player {Name = "Boomer", Loyalty = Loyalty.Cylon},
-            new Player {Name = "Starbuck", Loyalty = Loyalty.Human}
-        });
-
-        foreach (CardType type in Enum.GetValues<CardType>())
-        {
-            decks[type] = new List<SkillCard>();
-            discardPiles[type] = new List<SkillCard>();
+            case TurnPhase.Draw:
+                currentPhase = TurnPhase.Action;
+                break;
+            case TurnPhase.Action:
+                currentPhase = TurnPhase.Crisis;
+                break;
+            case TurnPhase.Crisis:
+                currentPhase = TurnPhase.End;
+                break;
+            case TurnPhase.End:
+                AdvanceTurn();
+                currentPhase = TurnPhase.Draw;
+                break;
+            default:
+                currentPhase = TurnPhase.Draw;
+                break;
         }
 
-        CoreSkillCardFactory.BuildAllDecks();
-
-        foreach (var deck in decks.Values)
-        {
-            deck.Shuffle();
-        }
+        StateHasChanged();
     }
 
-    Dictionary<CardType, List<SkillCard>> discardPiles = new();
+    void AdvanceTurn()
+    {
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
+        CurrentPlayer.HasDrawn = false;
+        StateHasChanged();
+    }
 
     SkillCard? GetLastCard(Player player)
     {
