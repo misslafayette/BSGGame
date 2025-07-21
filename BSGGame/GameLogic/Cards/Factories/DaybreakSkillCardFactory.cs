@@ -14,6 +14,7 @@ namespace BSGGame.GameLogic.Cards.Factories
                 [CardType.Tactics] = BuildTacticsDeck(),
                 [CardType.Piloting] = BuildPilotingDeck(),
                 [CardType.Engineering] = BuildEngineeringDeck(),
+                [CardType.Treachery] = BuildTreacheryDeck()
             };
 
             return decks;

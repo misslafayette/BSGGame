@@ -7,7 +7,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
      {
         public ForceTheirHandCard(int value)
     {
-        Type = CardType.Leadership;
+        Type = CardType.Politics;
         Value = value;
     }
     public override string Name => "Force Their Hand";
@@ -17,7 +17,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public PopularInfluenceCard(int value)
     {
-    Type = CardType.Leadership;
+    Type = CardType.Politics;
     Value = value;
     }
     public override string Name => "Popular Influence";
@@ -28,7 +28,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public NegotiationsCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Politics;
             Value = value;
         }
         public override string Name => "Negotiations";
@@ -74,7 +74,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public QuickThinkingCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Tactics;
             Value = value;
         }
         public override string Name => "Quick Thinking";
@@ -85,7 +85,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public UnorthodoxPlansCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Tactics;
             Value = value;
         }
         public override string Name => "Unorthodox Plans";
@@ -96,7 +96,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public ASecondChanceCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Tactics;
             Value = value;
         }
         public override string Name => "A Second Chance";
@@ -109,7 +109,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public DogfightCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Piloting;
             Value = value;
         }
         public override string Name => "Dogfight";
@@ -120,7 +120,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public CombatVeteranCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Piloting;
             Value = value;
         }
         public override string Name => "Combat Veteran";
@@ -131,7 +131,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public LaunchReservesCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Piloting;
             Value = value;
         }
         public override string Name => "Launch Reserves";
@@ -144,7 +144,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public InstallUpgradesCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Engineering;
             Value = value;
         }
         public override string Name => "Install Upgrades";
@@ -155,7 +155,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public RaptorSpecialistCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Engineering;
             Value = value;
         }
         public override string Name => "RaptorSpecialist";
@@ -166,7 +166,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public TestTheLimitsCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Engineering;
             Value = value;
         }
         public override string Name => "Test the Limits";
@@ -179,7 +179,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public BaitCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "Bait";
@@ -190,7 +190,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public DradisContactCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "Dradis Contact";
@@ -201,7 +201,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public PersonalVicesCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "Personal Vices";
@@ -212,7 +212,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public ABetterMachineCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "A Better Machine";
@@ -223,7 +223,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public ViolentOutburstsCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "Violent Outbursts";
@@ -234,7 +234,7 @@ namespace BSGGame.GameLogic.Cards.Daybreak
     {
         public ExploitWeaknessCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "Exploit Weakness";

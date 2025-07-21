@@ -7,7 +7,7 @@ namespace BSGGame.GameLogic.Cards.Exodus
      {
         public RedTapeCard(int value)
     {
-        Type = CardType.Leadership;
+        Type = CardType.Politics;
         Value = value;
     }
     public override string Name => "Red Tape";
@@ -17,7 +17,7 @@ namespace BSGGame.GameLogic.Cards.Exodus
     {
         public PoliticalProwessCard(int value)
     {
-        Type = CardType.Leadership;
+        Type = CardType.Politics;
         Value = value;
     }
     public override string Name => "Political Prowess";
@@ -53,7 +53,7 @@ namespace BSGGame.GameLogic.Cards.Exodus
     {
         public TrustInstinctsCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Tactics;
             Value = value;
         }
         public override string Name => "Trust Instincts";
@@ -64,7 +64,7 @@ namespace BSGGame.GameLogic.Cards.Exodus
     {
         public ScoutingForFuelCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Tactics;
             Value = value;
         }
         public override string Name => "Scouting for Fuel";
@@ -77,7 +77,7 @@ namespace BSGGame.GameLogic.Cards.Exodus
     {
         public ProtectTheFleetCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Piloting;
             Value = value;
         }
         public override string Name => "Protect the Fleet";
@@ -88,7 +88,7 @@ namespace BSGGame.GameLogic.Cards.Exodus
     {
         public BestOfTheBestCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Piloting;
             Value = value;
         }
         public override string Name => "Best of the Best";
@@ -101,7 +101,7 @@ namespace BSGGame.GameLogic.Cards.Exodus
     {
         public EstablishNetworkCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Engineering;
             Value = value;
         }
         public override string Name => "Establish Network";
@@ -112,7 +112,7 @@ namespace BSGGame.GameLogic.Cards.Exodus
     {
         public BuildNukeCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Engineering;
             Value = value;
         }
         public override string Name => "Build Nuke";

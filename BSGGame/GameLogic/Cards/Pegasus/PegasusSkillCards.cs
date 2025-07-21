@@ -5,7 +5,7 @@
      {
         public InvestigativeCommitteeCard(int value)
     {
-        Type = CardType.Leadership;
+        Type = CardType.Politics;
         Value = value;
     }
     public override string Name => "Investigative Committee";
@@ -16,7 +16,7 @@
     {
         public SupportThePeopleCard(int value)
     {
-        Type = CardType.Leadership;
+        Type = CardType.Politics;
         Value = value;
     }
     public override string Name => "Support the People";
@@ -27,7 +27,7 @@
     {
         public PreventativePolicyCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Politics;
             Value = value;
         }
         public override string Name => "Preventative Policy";
@@ -64,7 +64,7 @@
     {
         public GutsAndInitiativeCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Tactics;
             Value = value;
         }
         public override string Name => "Guts And Initiative";
@@ -75,7 +75,7 @@
     {
         public CriticalSituationCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Tactics;
             Value = value;
         }
         public override string Name => "Critical Situation";
@@ -88,7 +88,7 @@
     {
         public FullThrottleCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Piloting;
             Value = value;
         }
         public override string Name => "Full Throttle";
@@ -99,7 +99,7 @@
     {
         public RunInterferenceCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Piloting;
             Value = value;
         }
         public override string Name => "Run Interference";
@@ -112,7 +112,7 @@
     {
         public JuryRiggedCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Engineering;
             Value = value;
         }
         public override string Name => "Jury Rigged";
@@ -123,7 +123,7 @@
     {
         public CalculationsCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Engineering;
             Value = value;
         }
         public override string Name => "Calculations";
@@ -136,7 +136,7 @@
     {
         public BroadcastLocationCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "Broadcast Location";
@@ -147,7 +147,7 @@
     {
         public ByYourCommandCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "By Your Command";
@@ -158,7 +158,7 @@
     {
         public SpecialDestinyCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "Special Destiny";
@@ -169,7 +169,7 @@
     {
         public GodsPlanCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "God's Plan";
@@ -180,7 +180,7 @@
     {
         public HumanWeaknessCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "Human Weakness";
@@ -191,7 +191,7 @@
     {
         public SabotageCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Treachery;
             Value = value;
         }
         public override string Name => "Sabotage";

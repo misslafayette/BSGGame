@@ -109,7 +109,7 @@
 
         var baseDecks = CoreSkillCardFactory.BuildAllDecks();
         var daybreakDecks = DaybreakSkillCardFactory.BuildAllDecks();
-        var exodusDecks = CoreSkillCardFactory.BuildAllDecks();
+        var exodusDecks = ExodusSkillCardFactory.BuildAllDecks();
         var pegasusDecks = PegasusSkillCardFactory.BuildAllDecks();
 
         foreach (CardType type in Enum.GetValues<CardType>())
@@ -138,7 +138,26 @@
 
     void DrawCardOfType(Player player, CardType type)
     {
-        if (!decks.TryGetValue(type, out var deckForType) || deckForType.Count == 0)
+        if (!decks.TryGetValue(type, out var deckForType))
+            return;
+
+        if (deckForType.Count == 0)
+        {
+            if (discardPiles.TryGetValue(type, out var pile) && pile.Count > 0)
+            {
+                // Shuffle discard pile
+                pile.Shuffle();
+
+                //Refill the deck
+                deckForType.AddRange(pile);
+                pile.Clear();
+
+                Console.WriteLine($"Deck for {type} was empty. Shuffled discard pile back in.");
+            }
+        }
+
+        //if still empty after shuffling, abort draw
+        if (deckForType.Count == 0)
             return;
 
         var card = deckForType[0];

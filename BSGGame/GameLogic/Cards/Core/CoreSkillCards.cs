@@ -7,7 +7,7 @@ namespace BSGGame.GameLogic.Cards.Core
      {
         public ConsolidatePowerCard(int value)
     {
-        Type = CardType.Leadership;
+        Type = CardType.Politics;
         Value = value;
     }
     public override string Name => "Consolidate Power";
@@ -18,7 +18,7 @@ namespace BSGGame.GameLogic.Cards.Core
      {
         public InvestigativeCommitteeCard(int value)
     {
-        Type = CardType.Leadership;
+        Type = CardType.Politics;
         Value = value;
     }
     public override string Name => "Investigative Committee";
@@ -56,7 +56,7 @@ public class ExecutiveOrderCard : SkillCard
     {
         public LaunchScoutCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Tactics;
             Value = value;
         }
         public override string Name => "Launch Scout";
@@ -67,7 +67,7 @@ public class ExecutiveOrderCard : SkillCard
     {
         public StrategicPlanningCard(int value)
         {
-            Type = CardType.Leadership;
+            Type = CardType.Tactics;
             Value = value;
         }
         public override string Name => "StrategicPlanning";
@@ -104,7 +104,7 @@ public class ExecutiveOrderCard : SkillCard
     {
         public EvasiveManeuversCard(int value)
         {
-            Type = CardType.Engineering;
+            Type = CardType.Piloting;
             Value = value;
         }
         public override string Name => "Evasive Maneuvers";
@@ -115,7 +115,7 @@ public class ExecutiveOrderCard : SkillCard
     {
         public MaximumFirepowerCard(int value)
         {
-            Type = CardType.Engineering;
+            Type = CardType.Piloting;
             Value = value;
         }
         public override string Name => "Scientific Research";
