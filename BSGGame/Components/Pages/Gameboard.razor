@@ -10,10 +10,11 @@
 @using BSGGame.GameLogic.Cards.Factories;
 @using BSGGame.GameLogic.Cards.Pegasus;
 @using static BSGGame.GameLogic.TurnPhase;
-@page "/gameboard"
+@page "/"
 
 <h1>🚀 Game Board</h1>
 
+<p><b>Current Turn:</b> @CurrentPlayer.Name's turn, @currentPhase phase</p>
 <p>Select a location:</p>
 
 <div class="grid grid-cols-3 gap-3">
@@ -30,20 +31,23 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">
-                        @player.Name @if (player.HasDrawn) {
-                        <span>👏</span>
+                        @player.Name
+                        @if (player == CurrentPlayer)
+                        {
+                            <span>⭐</span>
+                        }
                     }
                     </h5>
                     <p>HasDrawn: @player.HasDrawn</p>
                     <p class= "card-text">
                         Loyalty: <strong>@player.Loyalty</strong>
                     </p>
-                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Tactics)">Draw Tactics</button>
-                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Politics)">Draw Politics</button>
-                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Leadership)">Draw Leadership</button>
-                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Engineering)">Draw Engineering</button>
-                    <button class="btn btn-outline-primary" @onclick="() => DrawCardOfType(player, CardType.Piloting)">Draw Piloting</button>
-                    <button class="btn btn-warning" @onclick="AdvancePhase">Next Phase</button>
+                    <button class="btn btn-purple" @onclick="() => DrawCardOfType(player, CardType.Tactics)">Draw Tactics</button>
+                    <button class="btn btn-warning-flip" @onclick="() => DrawCardOfType(player, CardType.Politics)">Draw Politics</button>
+                    <button class="btn btn-success-flip" @onclick="() => DrawCardOfType(player, CardType.Leadership)">Draw Leadership</button>
+                    <button class="btn btn-info-flip" @onclick="() => DrawCardOfType(player, CardType.Engineering)">Draw Engineering</button>
+                    <button class="btn btn-danger-flip" @onclick="() => DrawCardOfType(player, CardType.Piloting)">Draw Piloting</button>
+                    <button class="btn btn-outline-dark" @onclick="AdvancePhase">Next Phase</button>
 
                     @if (player.Cards.Any())
                     {
@@ -218,3 +222,70 @@
         return player.Cards.LastOrDefault();
     }
 }
+
+<style>
+    .btn-purple {
+        background-color: #6f42c1;
+        color: white;
+        border: 1px solid #6f42c1;
+        transition: 0.2s ease-in-out;
+    }
+
+        .btn-purple:hover {
+            background-color: white;
+            color: #6f42c1;
+            border-color: #6f42c1;
+        }
+
+    .btn-warning-flip {
+        background-color: #ffc107;
+        color: black;
+        border: 1px solid #ffc107;
+        transition: 0.2s ease-in-out;
+    }
+
+        .btn-warning-flip:hover {
+            background-color: white;
+            color: #ffc107;
+            border-color: #ffc107;
+        }
+
+    .btn-success-flip {
+        background-color: #198754;
+        color: white;
+        border: 1px solid #198754;
+        transition: 0.2s ease-in-out;
+    }
+
+        .btn-success-flip:hover {
+            background-color: white;
+            color: #198754;
+            border-color: #198754;
+        }
+
+    .btn-info-flip {
+        background-color: #0dcaf0;
+        color: black;
+        border: 1px solid #0dcaf0;
+        transition: 0.2s ease-in-out;
+    }
+
+        .btn-info-flip:hover {
+            background-color: white;
+            color: #0dcaf0;
+            border-color: #0dcaf0;
+        }
+
+    .btn-danger-flip {
+        background-color: #dc3545;
+        color: white;
+        border: 1px solid #dc3545;
+        transition: 0.2s ease-in-out;
+    }
+
+        .btn-danger-flip:hover {
+            background-color: white;
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+</style>
