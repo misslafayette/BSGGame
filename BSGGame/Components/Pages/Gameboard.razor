@@ -103,13 +103,32 @@
             new Player {Name = "Starbuck", Loyalty = Loyalty.Human}
         });
 
+        bool IncludeDaybreak = true;
+        bool IncludeExodus = true;
+        bool IncludePegasus = true;
+
+        var baseDecks = CoreSkillCardFactory.BuildAllDecks();
+        var daybreakDecks = DaybreakSkillCardFactory.BuildAllDecks();
+        var exodusDecks = CoreSkillCardFactory.BuildAllDecks();
+        var pegasusDecks = PegasusSkillCardFactory.BuildAllDecks();
+
         foreach (CardType type in Enum.GetValues<CardType>())
         {
             decks[type] = new List<SkillCard>();
             discardPiles[type] = new List<SkillCard>();
-        }
 
-        CoreSkillCardFactory.BuildAllDecks();
+            if (baseDecks.TryGetValue(type, out var coreCards))
+                decks[type].AddRange(coreCards);
+
+            if (IncludeDaybreak && daybreakDecks.TryGetValue(type, out var daybreakCards))
+                decks[type].AddRange(daybreakCards);
+
+            if (IncludeExodus && exodusDecks.TryGetValue(type, out var exodusCards))
+                decks[type].AddRange(exodusCards);
+
+            if (IncludePegasus && pegasusDecks.TryGetValue(type, out var pegasusCards))
+                decks[type].AddRange(pegasusCards);
+        }
 
         foreach (var deck in decks.Values)
         {
