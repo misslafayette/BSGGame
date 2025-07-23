@@ -320,4 +320,86 @@ namespace BSGGame.GameLogic.Cards.Core
             CylonActivationType = CylonActivation.HeavyRaiders;
         }
     }
+
+    public class TheOlympicCarrierCard : SkillCheckCrisisCard
+    {
+        public TheOlympicCarrierCard()
+        {
+            Title = "The Olympic Carrier";
+            BaseDifficulty = 11;
+            UsedSkills.Add(CardType.Politics);
+            UsedSkills.Add(CardType.Leadership);
+            UsedSkills.Add(CardType.Piloting);
+            PassEffect = "No effect.";
+            PartialPassValue = 8;
+            PartialPassEffect = "-1 Population";
+            FailEffect = "-1 Morale, -1 Population";
+            FTL = true;
+            CylonActivationType = CylonActivation.HeavyRaiders;
+        }
+    }
+
+    public class UnexpectedReunionCard : SkillCheckCrisisCard
+    {
+        public UnexpectedReunionCard()
+        {
+            Title = "The Olympic Carrier";
+            BaseDifficulty = 8;
+            UsedSkills.Add(CardType.Politics);
+            UsedSkills.Add(CardType.Leadership);
+            UsedSkills.Add(CardType.Tactics);
+            PassEffect = "No effect.";
+            FailEffect = "-1 Morale, and the current player discards his hand of Skill Cards.";
+            FTL = false;
+            CylonActivationType = CylonActivation.Raiders;
+        }
+    }
+
+    public class UnidentifiedShipCard : SkillCheckCrisisCard
+    {
+        public UnidentifiedShipCard()
+        {
+            Title = "Unidentified Ship";
+            BaseDifficulty = 10;
+            UsedSkills.Add(CardType.Tactics);
+            UsedSkills.Add(CardType.Piloting);
+            PassEffect = "No effect.";
+            FailEffect = "-1 Population";
+            FTL = false;
+            CylonActivationType = CylonActivation.RaidersLaunch;
+        }
+    }
+
+    public class WeaponMalfunctionCard : SkillCheckCrisisCard
+    {
+        public WeaponMalfunctionCard()
+        {
+            Title = "Weapon Malfunction";
+            BaseDifficulty = 11;
+            UsedSkills.Add(CardType.Tactics);
+            UsedSkills.Add(CardType.Piloting);
+            UsedSkills.Add(CardType.Engineering);
+            PassEffect = "No effect.";
+            FailEffect = "Damage 2 Vipers in space areas. All characters in the Weapons Control location are sent to Sickbay.";
+            FTL = false;
+            CylonActivationType = CylonActivation.RaidersLaunch;
+        }
+    }
+
+    public class WitchHuntCard : SkillCheckCrisisCard
+    {
+        public WitchHuntCard()
+        {
+            Title = "Witch Hunt";
+            BaseDifficulty = 10;
+            UsedSkills.Add(CardType.Politics);
+            UsedSkills.Add(CardType.Leadership);
+            PassEffect = "No effect.";
+            PartialPassValue = 6;
+            PartialPassEffect = "-1 Morale";
+            FailEffect = "-1 morale. Current player chooses a character and moves them to Sickbay.";
+            FTL = true;
+            CylonActivationType = CylonActivation.HeavyRaiders;
+        }
+    }
 }
